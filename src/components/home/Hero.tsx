@@ -1,32 +1,23 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from 'lucide-react';
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 
 export const Hero = () => {
 
     // Referencia para medir el progreso del scroll.-
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isOculto, setIsOculto] = useState(false);
-
-    // El useEffect es para hacer un corte directo al Hero mientras se hace el scroll.-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 350) {
-                setIsOculto(true);
-            } else {
-                setIsOculto(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     // useScroll nos da un valor de 0 a 1 según cuánto scroll hizo el usuario en esta sección.-
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
     });
+
+    // Se intercepta el progreso de 0 a 1.-
+    const filterBlur = useTransform(scrollYProgress, [0, 0.8], ["blur(0px)", "blur(20px)"]);
+
+    // La opacidad empezará a caer progresivamente.-
+    const globalOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
     // ----- TRANSFORMACIONES DE ANIMACIÓN SEGÚN EL SCROLL -----
 
@@ -46,29 +37,23 @@ export const Hero = () => {
     const glowRoseX = useTransform(scrollYProgress, [0, 1], ["-30%", "-40%"]);
     const glowOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-    // 'Opalo Creaciones' se empieza a desvancer y sube sutilmente.-
-    const textY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-    const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    
-    // Si el scroll pasa el 90%, se ocultan los elementos por completo.-
-    const displayMode = useTransform(scrollYProgress, [0, 0.9, 1], ["flex", "flex", "none"]);
+    // El texto subirá lentamente a medida que se va desenfocando.-
+    const textY = useTransform(scrollYProgress, [0, 0.8], [0, -60]);
 
     return (
 
         // La sección será un poco más alta para dar margen a la animación.-
         <section
             ref={containerRef}
-            className="relative h-[140vh] bg-black"
+            className="relative h-[130vh] bg-black"
         >
 
             <motion.div
-                style={{ display: displayMode }}
-                className={`sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transition-all duration-500
-                    ${isOculto
-                        ? "opacity-0 pointer-events-none invisible"
-                        : "opacity-100 flex"
-                    }    
-                `}
+                style={{
+                    filter: filterBlur,
+                    opacity: globalOpacity,
+                }}
+                className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center select-none"
             >
                 {/* --- CAPA DE MANCHAS Y TRAZOS.- */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
@@ -106,21 +91,16 @@ export const Hero = () => {
 
                 {/* --- CONTENIDO DE TEXTO EDITORIAL.- ---- */}
                 <div className="fixed inset-0 h-screen w-full flex flex-col items-center justify-center z-10 text-center px-6 max-w-3xl mx-auto pointer-events-none">
-                    <motion.div
-                        style={{ y: textY, opacity: textOpacity }} className="pointer-events-auto"
-                    >
+                    <motion.div style={{ y: textY }}>
                         <p className="text-white/60 tracking-[0.3em] uppercase text-xs font-light mb-6">
                             Arte & Tradición Argentina
                         </p>
 
-                        <h1
-                            className="text-7xl md:text-9xl font-light text-white mb-2"
-                            style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+                        <h1 className="text-7xl md:text-9xl font-light text-white mb-2" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
                             Ópalo
                         </h1>
 
-                        <h2
-                            className="text-3xl md:text-4xl font-light text-white/90 mb-4" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+                        <h2 className="text-3xl md:text-4xl font-light text-white/90 mb-4" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
                             Creaciones
                         </h2>
 
@@ -133,21 +113,15 @@ export const Hero = () => {
                     </motion.div>
 
                     {/* Botón de exploración que se desvanece con el scroll.- */}
-                    <motion.div
-                        style={{ opacity: textOpacity }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.2, duration: 1 }}
-                        className="absolute bottom-12 pointer-events-auto"
-                    >
+                    <div className="absolute bottom-12">
                         <button
                             onClick={() => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' })}
                             className="group inline-flex flex-col items-center gap-2 text-white/70 hover:text-white transition-all cursor-pointer"
                         >
-                            <span className="text-xs tracking-[0.4em]">Explorar</span>
+                            <span className="text-xs tracking-[0.4em] uppercase">Explorar</span>
                             <ChevronDown className="w-5 h-5 animate-bounce stroke-[1px]" />
                         </button>
-                    </motion.div>
+                    </div>
                 </div>
             </motion.div>
         </section>
