@@ -1,11 +1,26 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from 'lucide-react';
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const Hero = () => {
 
     // Referencia para medir el progreso del scroll.-
     const containerRef = useRef<HTMLDivElement>(null);
+    const [isOculto, setIsOculto] = useState(false);
+
+    // El useEffect es para hacer un corte directo al Hero mientras se hace el scroll.-
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 350) {
+                setIsOculto(true);
+            } else {
+                setIsOculto(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     // useScroll nos da un valor de 0 a 1 según cuánto scroll hizo el usuario en esta sección.-
     const { scrollYProgress } = useScroll({
@@ -43,12 +58,17 @@ export const Hero = () => {
         // La sección será un poco más alta para dar margen a la animación.-
         <section
             ref={containerRef}
-            className="relative h-[150vh] bg-black"
+            className="relative h-[140vh] bg-black"
         >
 
             <motion.div
                 style={{ display: displayMode }}
-                className="sticky top-0 h-screen w-full overflow-hidden items-center justify-center"
+                className={`sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transition-all duration-500
+                    ${isOculto
+                        ? "opacity-0 pointer-events-none invisible"
+                        : "opacity-100 flex"
+                    }    
+                `}
             >
                 {/* --- CAPA DE MANCHAS Y TRAZOS.- */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">

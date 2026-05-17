@@ -30,7 +30,7 @@ export const Navbar = () => {
             <nav
                 className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
                 ${isScrolled
-                        ? "backdrop-blur-md"
+                        ? "backdrop-blur-md bg-slate-950/40"
                         : "py-2 bg-transparent"
                     }`
                 }
