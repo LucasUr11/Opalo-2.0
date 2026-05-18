@@ -12,6 +12,7 @@ export const Navbar = () => {
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const [isScrolled, setIsScrolled] = useState(false);
 
+    // Efecto para detectar el scroll y cambiar las clases.-
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -47,14 +48,10 @@ export const Navbar = () => {
                             />
                         </div>
                         <span
-                            className='text-gray-100 font-bold text-2xl'
+                            style={{ fontFamily: 'Cormorant Garamond, serif' }}
+                            className='text-gray-100 text-3xl font-light'
                         >
                             Ópalo
-                        </span>
-                        <span
-                            className='text-gray-100 font-serif pl-1 pt-1'
-                        >
-                            Creaciones
                         </span>
                     </div>
 
@@ -63,7 +60,7 @@ export const Navbar = () => {
                         className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest"
                     >
                         <div className="hidden md:flex items-center gap-8">
-                            {navigationLinks.map((link) => (
+                             {navigationLinks.map((link) => (
                                 <a
                                     key={link.path}
                                     href={link.path}
