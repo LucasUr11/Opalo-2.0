@@ -1,10 +1,10 @@
 export interface NavItem {
     label: string;
-    path: string;
+    href: string;
 }
 
 export const navigationLinks: NavItem[] = [
-    { label: 'Mates', path: '/categoria/mates' },
-    { label: 'Personalizados', path: '/personalizados' },
-    { label: 'Contacto', path: '/contacto' },
+    { label: 'Mates', href: '/#products' },
+    { label: 'Personalizados', href: '/#personalidos' },
+    { label: 'Contacto', href: '/#contacto' },
 ];

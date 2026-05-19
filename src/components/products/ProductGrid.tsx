@@ -12,7 +12,10 @@ export const ProductGrid = ({ category }: ProductGridProps) => {
     if (error) return <div className="py-20 text-center text-red-500">Error al conectar con Supabase</div>;
 
     return (
-        <section className="py-16 bg-artisan-paper/20">
+        <section 
+            id='products'
+            className="py-16 bg-artisan-paper/20"
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lgpx-8">
                 <div className="flex items-end justify-between mb-12">
                     <div>

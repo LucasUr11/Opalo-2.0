@@ -7,17 +7,6 @@ import { BrandStory } from "../components/home/BrandStory";
 export const Home = () => {
     const [activeCategory, setActiveCategory] = useState('all'); // Hace que cuando se monta el componente, 'Todos' sea el seleccionado.-
 
-    const handleCategoryChange = (id: string) => {
-        setActiveCategory(id);
-
-        setTimeout(() => {
-           const gridSection = document.getElementById('section-catalogo');
-           if (gridSection) {
-            gridSection.scrollIntoView({ behavior: 'smooth' })
-           } 
-        }, 50);
-    }
-
     return (
         <>
             <Hero />

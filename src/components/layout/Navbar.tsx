@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, X } from 'lucide-react';
-import { navigationLinks } from '../../types/navigation';
 import { useCartStore } from '../../store/useCartStore';
 import { CartDrawer } from '../cart/CartDrawer';
 
@@ -25,6 +24,12 @@ export const Navbar = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const navLinks = [
+        { name: "Mates", href: "/#products"},
+        { name: "Personalizados", href: "/#personalizar"},
+        { name: "Contacto;", href: "/#contacto"},
+    ]
 
     return (
         <>
@@ -60,13 +65,13 @@ export const Navbar = () => {
                         className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest"
                     >
                         <div className="hidden md:flex items-center gap-8">
-                             {navigationLinks.map((link) => (
+                             {navLinks.map((link) => (
                                 <a
-                                    key={link.path}
-                                    href={link.path}
+                                    key={link.name}
+                                    href={link.href}
                                     className='text-sm font-medium text-gray-100 font-serif transition-colors relative group'
                                 >
-                                    {link.label}
+                                    {link.name}
                                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-artisan-blue transition-all group-hover:w-full" />
                                 </a>
                             ))}
@@ -114,13 +119,13 @@ export const Navbar = () => {
                             className="md:hidden bg-artisan-blue/80 overflow-hidden"
                         >
                             <div className="px-4 pt-2 pb-6 space-y-1">
-                                {navigationLinks.map((link) => (
+                                {navLinks.map((link) => (
                                     <a
-                                        key={link.path}
-                                        href={link.path}
+                                        key={link.name}
+                                        href={link.href}
                                         className="block px-3 py-4 text-base font-medium text-white hover:bg-artisan-leaf/10 rounded-lg"
                                     >
-                                        {link.label}
+                                        {link.name}
                                     </a>
                                 ))}
                             </div>
