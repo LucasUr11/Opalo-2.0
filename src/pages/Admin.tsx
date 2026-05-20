@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { LogOut, Plus, Loader2, Package, AlertTriangle, XCircle, Pencil, Trash2, LayoutDashboard } from "lucide-react";
 import { type Product } from "../types/product";
+import { ConfirmModal } from "../components/admin/ConfirmModal";
 
 interface MetricCardProps {
     title: string;
@@ -27,6 +28,7 @@ export default function Admin() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const [productToDeleteId, setProductToDeleteId] = useState<string | null>(null)
 
     // Estado para el Toast.-
     const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({
@@ -63,18 +65,23 @@ export default function Admin() {
         navigate("/login");
     };
 
-    const handleDelete = async (id: string) => {
-        const confirmDelete = window.confirm("¿Seguro que querés eliminar este producto permanentemente?");
-        if (!confirmDelete) return;
+    // Esta función ahora solo "prepara" el borrado abriendo el modal
+    const handleDeleteClick = (id: string) => {
+        setProductToDeleteId(id); // Al guardar el ID, el modal se va a abrir
+    };
+
+    // Esta función es la que realmente se conecta a Supabase cuando el usuario confirma en el modal
+    const executeDelete = async () => {
+        if (!productToDeleteId) return;
 
         try {
-            const productToDelete = products.find(p => p.id === id);
+            const productToDelete = products.find(p => p.id === productToDeleteId);
 
             if (productToDelete?.images && productToDelete.images.length > 0) {
                 const filesNames = productToDelete.images.map(url => {
                     const parts = url.split('/');
                     return parts[parts.length - 1];
-                })
+                });
 
                 const { error: storageError } = await supabase.storage
                     .from("product-images")
@@ -88,7 +95,7 @@ export default function Admin() {
             const { error: dbError } = await supabase
                 .from("products")
                 .delete()
-                .eq("id", id);
+                .eq("id", productToDeleteId); // Usamos el ID del estado
 
             if (dbError) throw dbError;
 
@@ -97,8 +104,9 @@ export default function Admin() {
 
         } catch (error) {
             console.error("Error al eliminar el producto:", error);
-
-            showNotification("Hubo un error al eliminar el producto. Por favor, intentá nuevamente.", "error");
+            showNotification("Hubo un error al eliminar el producto.", "error");
+        } finally {
+            setProductToDeleteId(null);
         }
     };
 
@@ -182,7 +190,10 @@ export default function Admin() {
                                         <button onClick={() => navigate(`/admin/edit/${product.id}`)} className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all">
                                             <Pencil className="w-5 h-5" />
                                         </button>
-                                        <button onClick={() => handleDelete(product.id)} className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-all">
+                                        <button
+                                            onClick={() => handleDeleteClick(product.id)}
+                                            className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
+                                        >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
                                     </td>
@@ -191,6 +202,7 @@ export default function Admin() {
                         </tbody>
                     </table>
                 </div>
+
             </div>
 
             {toast.show && (
@@ -210,11 +222,17 @@ export default function Admin() {
                             }
                         `}
                     />
-
                     {toast.message}
                 </div>
             )}
 
+            <ConfirmModal
+                isOpen={productToDeleteId !== null}
+                title="¿Confirmas eliminar?"
+                message="Esta acción no se puede deshacer. El producto se borrará permanentemente."
+                onConfirm={executeDelete}
+                onCancel={() => setProductToDeleteId(null)}
+            />
         </div>
     );
 }
