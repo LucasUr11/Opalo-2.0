@@ -28,6 +28,22 @@ export default function Admin() {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Estado para el Toast.-
+    const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({
+        show: false,
+        message: '',
+        type: 'success'
+    });
+
+    // Función para activar el Toast.-
+    const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, message, type });
+
+        setTimeout(() => {
+            setToast((prev) => ({ ...prev, show: false }));
+        }, 3000);
+    };
+
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -54,16 +70,16 @@ export default function Admin() {
         try {
             const productToDelete = products.find(p => p.id === id);
 
-            if (productToDelete && productToDelete.images && productToDelete.images.length > 0) {
+            if (productToDelete?.images && productToDelete.images.length > 0) {
                 const filesNames = productToDelete.images.map(url => {
-                    const parts = url.split('');
-                    return parts[parts.length -1];
+                    const parts = url.split('/');
+                    return parts[parts.length - 1];
                 })
 
                 const { error: storageError } = await supabase.storage
                     .from("product-images")
                     .remove(filesNames);
-                
+
                 if (storageError) {
                     console.error("Error al eliminar imágenes del almacenamiento:", storageError);
                 }
@@ -77,14 +93,13 @@ export default function Admin() {
             if (dbError) throw dbError;
 
             fetchProducts();
-            alert("Producto eliminado correctamente.");
+            showNotification("Producto eliminado correctamente.", "success");
+
         } catch (error) {
             console.error("Error al eliminar el producto:", error);
-            alert("Hubo un error al eliminar el producto. Por favor, intentá nuevamente.");
-        }
 
-        const { error } = await supabase.from("products").delete().eq("id", id);
-        if (!error) fetchProducts();
+            showNotification("Hubo un error al eliminar el producto. Por favor, intentá nuevamente.", "error");
+        }
     };
 
     if (isLoading) return (
@@ -111,7 +126,7 @@ export default function Admin() {
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3 text-artisan-brown">
                         <LayoutDashboard className="w-6 h-6" />
-                        <h1 className="font-serif text-2xl">Administración Artisan</h1>
+                        <h1 className="font-serif text-2xl">Administración Ópalo</h1>
                     </div>
                     <button onClick={handleLogout} className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors">
                         <LogOut className="w-4 h-4" /> Salir
@@ -177,6 +192,29 @@ export default function Admin() {
                     </table>
                 </div>
             </div>
+
+            {toast.show && (
+                <div
+                    className={`fixed bottom-5 right-5 z-50 flex items-center gap-3 px-6 py-4 rounded-xl shadow-xl border text-sm font-medium tracking-wide animate-bounce
+                        ${toast.type === "success"
+                            ? 'bg-green-50 border-green-200 text-green-800'
+                            : 'bg-red-50 border-red-200 text-red-800'
+                        }    
+                    `}
+                >
+                    <span
+                        className={`w-2 h-2 rounded-full
+                            ${toast.type === 'success'
+                                ? 'bg-green-500'
+                                : 'bg-red-500'
+                            }
+                        `}
+                    />
+
+                    {toast.message}
+                </div>
+            )}
+
         </div>
     );
 }

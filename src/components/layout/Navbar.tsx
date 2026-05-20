@@ -28,11 +28,12 @@ export const Navbar = () => {
     const navLinks = [
         { name: "Mates", href: "/#products"},
         { name: "Personalizados", href: "/#personalizar"},
-        { name: "Contacto;", href: "/#contacto"},
+        { name: "Contacto", href: "/#contacto"},
     ]
 
     return (
         <>
+            {/* className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-md bg-slate-950/40" */}
             <nav
                 className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
                 ${isScrolled
