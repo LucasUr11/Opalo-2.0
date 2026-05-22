@@ -1,8 +1,8 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, ScrollRestoration } from "react-router-dom";
 
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
+import { CatalogPage } from "./pages/CatalogPage";
 import { Home } from "./pages/Home";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -33,6 +33,7 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/productos", element: <CatalogPage /> },
       { path: "/product/:id", element: <ProductDetailPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/login", element: <Login /> },

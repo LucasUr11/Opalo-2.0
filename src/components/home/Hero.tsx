@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronDown } from 'lucide-react';
 import { useRef } from "react";
 
 export const Hero = () => {
@@ -91,7 +90,11 @@ export const Hero = () => {
 
                 {/* --- CONTENIDO DE TEXTO EDITORIAL.- ---- */}
                 <div className="fixed inset-0 h-screen w-full flex flex-col items-center justify-center z-10 text-center px-6 max-w-3xl mx-auto pointer-events-none">
-                    <motion.div style={{ y: textY }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: 'easeOut' }}
+                        style={{ y: textY }}>
                         <p className="text-white/60 tracking-[0.3em] uppercase text-xs font-light mb-6">
                             Arte & Tradición Argentina
                         </p>
@@ -111,17 +114,6 @@ export const Hero = () => {
                             Descubrí el arte de matear con estilo.
                         </p>
                     </motion.div>
-
-                    {/* Botón de exploración que se desvanece con el scroll.- */}
-                    <div className="absolute bottom-12">
-                        <button
-                            onClick={() => document.getElementById('categorias')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="group inline-flex flex-col items-center gap-2 text-white/70 hover:text-white transition-all cursor-pointer"
-                        >
-                            <span className="text-xs tracking-[0.4em] uppercase">Explorar</span>
-                            <ChevronDown className="w-5 h-5 animate-bounce stroke-[1px]" />
-                        </button>
-                    </div>
                 </div>
             </motion.div>
         </section>

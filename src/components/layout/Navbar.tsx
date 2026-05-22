@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { CartDrawer } from '../cart/CartDrawer';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +12,9 @@ export const Navbar = () => {
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     const navLinks = [
-        { name: "Mates", href: "/#catalogo" },
-        { name: "Personalizados", href: "/#personalizar" },
-        { name: "Contacto", href: "/#contacto" },
+        { name: "Productos", to: "/productos" },
+        { name: "Personalizados", to: "/personalizar" },
+        { name: "Contacto", to: "/contacto" },
     ]
 
     return (
@@ -46,21 +47,14 @@ export const Navbar = () => {
                     >
                         <div className="hidden md:flex items-center gap-8">
                             {navLinks.map((link) => (
-                                <a
+                                <Link
                                     key={link.name}
-                                    href={link.href}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        const element = document.getElementById("catalogo");
-                                        if (element) {
-                                            element.scrollIntoView({ behavior: "smooth" });
-                                        }
-                                    }}
+                                    to={link.to}
                                     className='text-sm font-medium text-gray-100 font-serif transition-colors relative group'
                                 >
                                     {link.name}
                                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-artisan-blue transition-all group-hover:w-full" />
-                                </a>
+                                </Link>
                             ))}
                             <button
                                 onClick={() => setIsCartOpen(true)}
@@ -107,9 +101,9 @@ export const Navbar = () => {
                         >
                             <div className="px-4 pt-2 pb-6 space-y-1">
                                 {navLinks.map((link) => (
-                                    <a
+                                    <Link
                                         key={link.name}
-                                        href={link.href}
+                                        to={link.to}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             const element = document.getElementById("catalogo");
@@ -120,7 +114,7 @@ export const Navbar = () => {
                                         className="block px-3 py-4 text-base font-medium text-white hover:bg-artisan-leaf/10 rounded-lg"
                                     >
                                         {link.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </motion.div>
