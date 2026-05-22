@@ -28,6 +28,8 @@ export const useProducts = (categoryId?: string) => {
                     }
                 }
 
+                query = query.order('name', { ascending: true}); // Para ordenar alfabeticamente los productos en ProductaGrid.tsx.-
+
                 const { data, error: supabaseError } = await query;
 
                 if (supabaseError) throw supabaseError;

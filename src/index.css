@@ -26,10 +26,6 @@
     padding: 0;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     font-family: sans-serif;
   }
@@ -49,4 +45,8 @@
   .animate-gradient-x {
     animation: gradient-x 3s ease infinite;
   }
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
 }

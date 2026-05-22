@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
@@ -9,38 +9,17 @@ export const Navbar = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const cartItems = useCartStore((state) => state.cart);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    // Efecto para detectar el scroll y cambiar las clases.-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     const navLinks = [
-        { name: "Mates", href: "/#products"},
-        { name: "Personalizados", href: "/#personalizar"},
-        { name: "Contacto", href: "/#contacto"},
+        { name: "Mates", href: "/#catalogo" },
+        { name: "Personalizados", href: "/#personalizar" },
+        { name: "Contacto", href: "/#contacto" },
     ]
 
     return (
         <>
-            {/* className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-md bg-slate-950/40" */}
             <nav
-                className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
-                ${isScrolled
-                        ? "backdrop-blur-md bg-slate-950/40"
-                        : "py-2 bg-transparent"
-                    }`
-                }
+                className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-md bg-slate-950/40"
             >
                 <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
 
@@ -66,10 +45,17 @@ export const Navbar = () => {
                         className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest"
                     >
                         <div className="hidden md:flex items-center gap-8">
-                             {navLinks.map((link) => (
+                            {navLinks.map((link) => (
                                 <a
                                     key={link.name}
                                     href={link.href}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        const element = document.getElementById("catalogo");
+                                        if (element) {
+                                            element.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                    }}
                                     className='text-sm font-medium text-gray-100 font-serif transition-colors relative group'
                                 >
                                     {link.name}
@@ -124,6 +110,13 @@ export const Navbar = () => {
                                     <a
                                         key={link.name}
                                         href={link.href}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            const element = document.getElementById("catalogo");
+                                            if (element) {
+                                                element.scrollIntoView({ behavior: "smooth" });
+                                            }
+                                        }}
                                         className="block px-3 py-4 text-base font-medium text-white hover:bg-artisan-leaf/10 rounded-lg"
                                     >
                                         {link.name}

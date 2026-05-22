@@ -42,8 +42,11 @@ importers:
         specifier: ^19.2.5
         version: 19.2.6(react@19.2.6)
       react-router-dom:
-        specifier: ^7.15.0
-        version: 7.15.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^7.15.1
+        version: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react-router-hash-link:
+        specifier: ^2.4.3
+        version: 2.4.3(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       tailwind:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1506,6 +1509,10 @@ packages:
   lodash@4.17.5:
     resolution: {integrity: sha512-svL3uiZf1RwhH+cWrfZn3A4+U58wbP0tGVTLQPbjplZxZ8ROD9VLuNgsRniTlLe7OlSqR79RUehXgpBW/s0IQw==}
 
+  loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
@@ -1686,6 +1693,9 @@ packages:
     resolution: {integrity: sha512-SymqIsn8GjEUy8nG7HiyEjgbfk1xFosRIakUX1NHLpriq3vVpKniGrr9RdMWCaGYWByIovbRt2f/WvmP/IOApQ==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
+  prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
@@ -1711,15 +1721,24 @@ packages:
     peerDependencies:
       react: ^19.2.6
 
-  react-router-dom@7.15.0:
-    resolution: {integrity: sha512-VcrVg64Fo8nwBvDscajG8gRTLIuTC6N50nb22l2HOOV4PTOHgoGp8mUjy9wLiHYoYTSYI36tUnXZgasSRFZorQ==}
+  react-is@16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-router-dom@7.15.1:
+    resolution: {integrity: sha512-AzF62gjY6U9rkMq4RfP/r2EVtQ7DMfNMjyOp/flLTCrtRylLiK4wT4pSq6O8rOXZ2eXdZYJPEYe+ifomiv+Igg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.15.0:
-    resolution: {integrity: sha512-HW9vYwuM8f4yx66Izy8xfrzCM+SBJluoZcCbww9A1TySax11S5Vgw6fi3ZjMONw9J4gQwngL7PzkyIpJJpJ7RQ==}
+  react-router-hash-link@2.4.3:
+    resolution: {integrity: sha512-NU7GWc265m92xh/aYD79Vr1W+zAIXDWp3L2YZOYP4rCqPnJ6LI6vh3+rKgkidtYijozHclaEQTAHaAaMWPVI4A==}
+    peerDependencies:
+      react: '>=15'
+      react-router-dom: '>=4'
+
+  react-router@7.15.1:
+    resolution: {integrity: sha512-R8rl9HhgikFYoPJymnUtPXWbnDb3oget6lQnfIoupbt61aT9aOhRkDsY2XRhZRyX1Z/8a5sL74fXmFNm3NRK5A==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -3629,6 +3648,10 @@ snapshots:
 
   lodash@4.17.5: {}
 
+  loose-envify@1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -3787,6 +3810,12 @@ snapshots:
     dependencies:
       babel-runtime: 6.26.0
 
+  prop-types@15.8.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+
   proxy-addr@2.0.7:
     dependencies:
       forwarded: 0.2.0
@@ -3810,13 +3839,21 @@ snapshots:
       react: 19.2.6
       scheduler: 0.27.0
 
-  react-router-dom@7.15.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  react-is@16.13.1: {}
+
+  react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
-      react-router: 7.15.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react-router: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  react-router@7.15.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  react-router-hash-link@2.4.3(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6):
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.2.6
+      react-router-dom: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+
+  react-router@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       cookie: 1.1.1
       react: 19.2.6
