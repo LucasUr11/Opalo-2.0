@@ -11,29 +11,48 @@ export const categories = [
     { id: 'otros', label: 'Otros', sub: ['cuencos_tablas', 'cajas'], icon: Shirt },
 ];
 
-export const Categories = ({ onCategoryChange }: any) => {
-    return (
-        <section 
-            className="py-12 bg-artisan-sand">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+interface CategoriProps {
+    activeCategory: string;
+    setActiveCategory: (id: string) => void;
+}
 
+export const Categories = ({ activeCategory, setActiveCategory }: CategoriProps) => {
+    return (
+        <section
+            className="py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="flex flex-wrap gap-4 justify-center">
-                        {categories.map((cat) => (
-                            <motion.button
-                                key={cat.id}
-                                onClick={() => onCategoryChange(cat.id)}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                whileHover={{ scale: 1.05 }}
-                                className="flex items-center gap-2 px-6 py-3 rounded-full border transition-all 'bg-transparent text-artisan-brown border-artisan-brown/20 hover:border-artisan-brown cursor-pointer"
-                            >
-                                <cat.icon className="w-4 h-4 mb-3 text-artisan-leaf group-hover:text-artisan-paper transition-colors" />
-                                <span className="text-sm font-bold uppercase tracking-widest text-artisan-brown group-hover:text-artisan-paper">
-                                    {cat.label}
-                                </span>
-                            </motion.button>
-                        ))}
+                        {categories.map((cat) => {
+                            const isActive = activeCategory === cat.id;
+
+                            return (
+                                <motion.button
+                                    key={cat.id}
+                                    onClick={() => setActiveCategory(cat.id)}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    whileHover={{ scale: 1.05 }}
+                                    className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all cursor-pointer
+                                        ${isActive
+                                            ? 'bg-artisan-brown'
+                                            : 'bg-transparent text-artisan-brown border-artisan-brown/20 hover:border-artisan-brown'
+                                        }    
+                                    `}
+                                >
+                                    <cat.icon className="w-4 h-4 mb-3 text-artisan-leaf group-hover:text-artisan-paper transition-colors" />
+                                    <span
+                                        className={`text-sm font-bold uppercase tracking-widest text-artisan-brown group-hover:text-artisan-paper
+                                        ${isActive
+                                                ? 'text-white'
+                                                : 'text-artisan-brown'
+                                            }`}
+                                    >
+                                        {cat.label}
+                                    </span>
+                                </motion.button>
+                            )
+                        })}
                     </div>
                 </FadeIn>
 

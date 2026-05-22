@@ -27,6 +27,7 @@ export const CatalogPage = () => {
                 <h1 className="font-serif text-4xl text-artisan-brown mb-8 text-center">
                     Nuestro Catálogo
                 </h1>
+                <div className="w-20 h-1 bg-artisan-leaf/90 mx-auto mt-4" />
 
                 <Categories activeCategory={selectedCategory} setActiveCategory={setSelectedCategory} />
 
