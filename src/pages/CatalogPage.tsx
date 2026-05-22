@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate, useLocation  } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Categories } from "../components/home/Categories";
 import { ProductGrid } from "../components/products/ProductGrid";
 
 export const CatalogPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [selectedCategory, setSelectedCategory] = useState<string>("all");
+    const initialCategory = location.state?.initialCategory || "all";
+    const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
 
     return (
         <div className="pt-28 pb-16 bg-artisan-paper/20 min-h-screen">
