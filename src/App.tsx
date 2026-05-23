@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
@@ -15,9 +15,8 @@ import Login from "./pages/Login"
 const AppLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
-      <ScrollRestoration getKey={(location) => location.pathname} /> {/* Hace que si abro una nueva pagina, se ubica arrba del todo, si retrocedes se ubica en el lugar de la pantalla que estaba.- */}
+      <Navbar />
 
       <main className="grow">
         <Outlet />

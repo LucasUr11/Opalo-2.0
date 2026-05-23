@@ -2,9 +2,12 @@
 
 @theme {
   /* Nuestra paleta artesanal */
-  --color-artisan-brown: #78350f; /* Amber 900 */
-  --color-artisan-paper: #fffbeb; /* Amber 50 */
-  --color-artisan-leaf: #4d7c0f;  /* Lime 700 */
+  --color-artisan-brown: #78350f;
+  /* Amber 900 */
+  --color-artisan-paper: #fffbeb;
+  /* Amber 50 */
+  --color-artisan-leaf: #4d7c0f;
+  /* Lime 700 */
   --color-artisan-blue: #5297ac;
   --color-artisan-main: #a6c6c1;
   --color-artisan-sand: #e6e0cf;
@@ -12,10 +15,12 @@
   --color-artisan-dust: #baa6a5;
 
   /* Páginas de Mates.- */
-  --color-verde-mate: #454e42; /* Todo Mates */
-  --color-verde-mate-oscuro: #014042 /* A Puro Mate */
-  /* Fuentes para ese toque artesanal */
-  --font-serif: "Playfair Display", serif;
+  --color-verde-mate: #454e42;
+  /* Todo Mates */
+  --color-verde-mate-oscuro: #014042
+    /* A Puro Mate */
+    /* Fuentes para ese toque artesanal */
+    --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 }
 
@@ -24,6 +29,10 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {

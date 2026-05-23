@@ -25,21 +25,23 @@ export const Navbar = () => {
                 <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
 
                     {/* Logo.- */}
-                    <div className="flex items-center">
-                        <div className="w-15 h-15 overflow-hidden">
-                            <img
-                                src="/logo-artisan.png"
-                                alt="Logo"
-                                className='w-full h-full p-0 object-cover'
-                            />
+                    <a href="/">
+                        <div className="flex items-center">
+                            <div className="w-15 h-15 overflow-hidden">
+                                <img
+                                    src="/logo-artisan.png"
+                                    alt="Logo"
+                                    className='w-full h-full p-0 object-cover'
+                                />
+                            </div>
+                            <span
+                                style={{ fontFamily: 'Cormorant Garamond, serif' }}
+                                className='text-gray-100 text-3xl font-light'
+                            >
+                                Ópalo
+                            </span>
                         </div>
-                        <span
-                            style={{ fontFamily: 'Cormorant Garamond, serif' }}
-                            className='text-gray-100 text-3xl font-light'
-                        >
-                            Ópalo
-                        </span>
-                    </div>
+                    </a>
 
                     {/* Links.- */}
                     <div
@@ -56,6 +58,7 @@ export const Navbar = () => {
                                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-artisan-blue transition-all group-hover:w-full" />
                                 </Link>
                             ))}
+
                             <button
                                 onClick={() => setIsCartOpen(true)}
                                 className='relative p-2 cursor-pointer hover:bg-artisan-main/20 rounded-full transition-all'
@@ -65,6 +68,7 @@ export const Navbar = () => {
                                     {totalItems}
                                 </span>
                             </button>
+                            
                         </div>
                     </div>
 
