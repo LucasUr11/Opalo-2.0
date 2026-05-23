@@ -45,7 +45,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                                 <h2 className="font-serif text-xl text-artisan-brown">Tu Carrito</h2>
                             </div>
                             <button onClick={onClose} className="p-2 hover:bg-artisan-brown/5 rounded-full transition-colors">
-                                <X className="w-6 h-6 text-artisan-brown" />
+                                <X className="w-6 h-6 text-artisan-brown cursor-pointer" />
                             </button>
                         </div>
 

@@ -21,7 +21,7 @@ export const ProductGrid = ({ category }: ProductGridProps) => {
     return (
         <section 
             id='catalogo'
-            className="py-16 bg-artisan-paper/20 scroll-smooth"
+            className="py-16 bg-artisan-paper/50 scroll-smooth"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lgpx-8">
                 <div className="flex items-end justify-between mb-12">
