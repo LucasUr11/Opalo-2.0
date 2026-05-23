@@ -1,52 +1,36 @@
-import { motion } from 'framer-motion';
-import { Hammer, Heart, Sparkles } from 'lucide-react';
+import FadeIn from '../ui/FadeIn';
 
 export const BrandStory = () => {
     return (
-        <section className="py-24 bg-artisan-paper relative overflow-hidden">
+        <section className="relative w-full h-137.5 flex items-center justify-center overflow-hidden bg-slate-950">
+            
+            <img 
+                src="/banner.png"
+                alt="Esencia y Cultura Argentina Ópalo" 
+                className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-1000 hover:scale-105"
+            />
 
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-linear-to-b from-transparent to-artisan-brown/20" />
+            {/* Capa para bajarle la opcidad.- */}
+            <div className="absolute inset-0 bg-linear-to-r from-slate-950/50 via-slate-950/30 to-slate-950/50 backdrop-blur-[2px]" />
 
-            <div className="max-w-4xl mx-auto px-4 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className='space-y-6'
-                >
-                    <h2 className="font-serif text-4xl md:text-5xl text-artisan-brown leading-tight">
-                        Cada pieza cuenta una historia
+            <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                <FadeIn>
+                    <span className="text-artisan-blue font-bold uppercase tracking-widest text-xs block mb-4 drop-shadow">
+                        Nuestra Identidad
+                    </span>
+                    <h2 
+                        style={{ fontFamily: 'Cormorant Garamond, serif' }} 
+                        className="text-gray-100 text-3xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight drop-shadow-lg"
+                    >
+                        Mate, una excusa para <br className="hidden sm:inline" /> detenerse y disfrutar.
                     </h2>
-
-                    <p className="text-lg md:text-xl text-artisan-brown/70 max-w-2xl mx-auto leading-relaxed">
-                        Trabajamos con materiales nobles y técnicas artesanales para crear piezas que
-                        <span className="text-artisan-leaf font-medium"> trascienden el tiempo</span>.
-                        No vendemos objetos, compartimos una tradición.
+                    <div className="w-16 h-0.5 bg-artisan-blue/50 mx-auto mt-6 shadow-sm" />
+                    <p className="text-gray-300/90 font-sans text-sm md:text-base font-light tracking-wide max-w-2xl mx-auto mt-6 drop-shadow">
+                        Piezas únicas cargadas de historia, diseñadas para honrar nuestras costumbres.
                     </p>
-
-                    {/* Íconos representativos.- */}
-                    <div className="grid grid-cols-3 gap-8 pt-12">
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="p-4 rounded-full bg-white shadow-sm border border-artisan-brown/5">
-                                <Hammer className="w-6 h-6 text-artisan-leaf" />
-                            </div>
-                            <span className="text-xs font-bold uppercase tracking-widest text-artisan-brown/60">Manual</span>
-                        </div>
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="p-4 rounded-full bg-white shadow-sm border border-artisan-brown/5">
-                                <Heart className="w-6 h-6 text-artisan-leaf" />
-                            </div>
-                            <span className="text-xs font-bold uppercase tracking-widest text-artisan-brown/60">Pasión</span>
-                        </div>
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="p-4 rounded-full bg-white shadow-sm border border-artisan-brown/5">
-                                <Sparkles className="w-6 h-6 text-artisan-leaf" />
-                            </div>
-                            <span className="text-xs font-bold uppercase tracking-widest text-artisan-brown/60">Único</span>
-                        </div>
-                    </div>
-                </motion.div>
+                </FadeIn>
             </div>
+
         </section>
     );
 };
