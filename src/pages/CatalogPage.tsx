@@ -12,7 +12,7 @@ export const CatalogPage = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
 
     return (
-        <div className="pt-28 pb-16 bg-artisan-paper/20 min-h-screen">
+        <div className="pt-28 pb-16 bg-artisan-paper/50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button
                     onClick={() => navigate('/')}

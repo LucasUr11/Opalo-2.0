@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
+import mate from "../../assets/mates_geometrico-2.png"
+import bombilla from "../../assets/bombilla_aluminio-2.jpg"
+import prenda from "../../assets/prenda_compleja-1.png"
+import yerbera from "../../assets/yerbera_cuero_sintetico-2.png"
+
 interface CategoryCard {
     id: string;
     name: string;
@@ -16,25 +21,25 @@ export const HomeCategories = () => {
         {
             id: 'mates',
             name: 'Mates',
-            image: '/images/cat-mates.jpg',
+            image: mate,
             description: 'Piezas únicas en madera y calabaza'
         },
         {
             id: 'bombillas',
             name: 'Bombillas',
-            image: '/images/cat-mates.jpg',
+            image: bombilla,
             description: 'Alpaca y cincelados artesanales'
         },
         {
             id: 'yerberas',
             name: 'Yerberas',
-            image: '/images/cat-mates.jpg',
+            image: yerbera,
             description: 'Cuero genuino y guardado premium'
         },
         {
             id: 'prendas',
             name: 'Prendas',
-            image: '/images/cat-mates.jpg',
+            image: prenda,
             description: 'Indumentaria con identidad'
         },
     ]
@@ -44,7 +49,7 @@ export const HomeCategories = () => {
     };
 
     return (
-        <section className="py-20 bg-artisan-paper/10">
+        <section className="py-20 bg-artisan-paper/50">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
                     <span className="text-artisan-leaf font-bold uppercase tracking-widest text-xs block mb-3">
