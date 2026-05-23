@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
-import mate from "../../assets/mates_geometrico-2.png"
-import bombilla from "../../assets/bombilla_aluminio-2.jpg"
-import prenda from "../../assets/prenda_compleja-1.png"
-import yerbera from "../../assets/yerbera_cuero_sintetico-2.png"
+import mate from "../../assets/mates_geometrico-2.webp"
+import bombilla from "../../assets/bombilla_aluminio-2.webp"
+import prenda from "../../assets/prenda_compleja-1.webp"
+import yerbera from "../../assets/yerbera_cuero_sintetico-2.webp"
 
 interface CategoryCard {
     id: string;
@@ -73,6 +73,8 @@ export const HomeCategories = () => {
                                     src={cat.image}
                                     alt={cat.name}
                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                             </div>
 
