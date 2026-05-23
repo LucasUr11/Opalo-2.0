@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
-import mate from "../../assets/mates_geometrico-2.webp"
-import bombilla from "../../assets/bombilla_aluminio-2.webp"
-import prenda from "../../assets/prenda_compleja-1.webp"
-import yerbera from "../../assets/yerbera_cuero_sintetico-2.webp"
+// import mate from "../../assets/mates_geometrico-2.webp"
+// import bombilla from "../../assets/bombilla_aluminio-2.webp"
+// import prenda from "../../assets/prenda_compleja-1.webp"
+// import yerbera from "../../assets/yerbera_cuero_sintetico-2.webp"
 
 interface CategoryCard {
     id: string;
@@ -21,25 +21,25 @@ export const HomeCategories = () => {
         {
             id: 'mates',
             name: 'Mates',
-            image: mate,
+            image: "mate",
             description: 'Piezas únicas en madera y calabaza'
         },
         {
             id: 'bombillas',
             name: 'Bombillas',
-            image: bombilla,
+            image: "bombilla",
             description: 'Alpaca y cincelados artesanales'
         },
         {
             id: 'yerberas',
             name: 'Yerberas',
-            image: yerbera,
+            image: "yerbera",
             description: 'Cuero genuino y guardado premium'
         },
         {
             id: 'prendas',
             name: 'Prendas',
-            image: prenda,
+            image: "prenda",
             description: 'Indumentaria con identidad'
         },
     ]

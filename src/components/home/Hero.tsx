@@ -21,15 +21,15 @@ export const Hero = () => {
     // ----- TRANSFORMACIONES DE ANIMACIÓN SEGÚN EL SCROLL -----
 
     // El circulo principal se expande.-
-    // const circleScale = useTransform(scrollYProgress, [0, 1], [1, 4]);
-    // const circleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+    const circleScale = useTransform(scrollYProgress, [0, 1], [1, 4]);
+    const circleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     // Trazos vectorales rotan y se expanden hacia los lados.-
-    // const strokeAzulScale = useTransform(scrollYProgress, [0, 1], [1, 5]);
-    // const strokeAzulRotate = useTransform(scrollYProgress, [0, 1], [12, 45]);
+    const strokeAzulScale = useTransform(scrollYProgress, [0, 1], [1, 5]);
+    const strokeAzulRotate = useTransform(scrollYProgress, [0, 1], [12, 45]);
 
-    // const strokeRoseScale = useTransform(scrollYProgress, [0, 1], [1, 4.5]);
-    // const strokeRoseRotate = useTransform(scrollYProgress, [0, 1], [-45, -90]);
+    const strokeRoseScale = useTransform(scrollYProgress, [0, 1], [1, 4.5]);
+    const strokeRoseRotate = useTransform(scrollYProgress, [0, 1], [-45, -90]);
 
     // Glows de pintura líquida se dispersan y desvanecen.-
     const glowAzulX = useTransform(scrollYProgress, [0, 1], ["-50%", "-120%"]);
@@ -70,22 +70,22 @@ export const Hero = () => {
                     />
 
                     {/* Trazado Vectorial Azul.- */}
-                    {/* <motion.div
+                    <motion.div
                         style={{ scale: strokeAzulScale, rotate: strokeAzulRotate, opacity: circleOpacity, x: "-33%", y: "-50%" }}
                         className="absolute top-1/2 left-1/2 w-160 h-120 rounded-full border border-artisan-blue/20"
-                    /> */}
+                    />
 
                     {/* Trazado Vectorial Rosa.- */}
-                    {/* <motion.div
+                    <motion.div
                         style={{ scale: strokeRoseScale, rotate: strokeRoseRotate, opacity: circleOpacity, x: "-66%", y: "-50%" }}
                         className="absolute top-1/2 left-1/2 w-140 h-160 rounded-full border border-artisan-rose/15"
-                    /> */}
+                    />
 
                     { /*Circulo Principal */}
-                    {/* <motion.div
+                    <motion.div
                         style={{ scale: circleScale, opacity: circleOpacity, x: "-50%", y: "-50%" }}
                         className="absolute top-1/2 left-1/2 w-150 h-150 rounded-full border border-white/10"
-                    /> */}
+                    />
                 </div>
 
                 {/* --- CONTENIDO DE TEXTO EDITORIAL.- ---- */}
