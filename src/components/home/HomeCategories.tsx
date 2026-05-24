@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { useProducts } from "../../hooks/useProducts";
 
 interface CategoryCard {
     id: string;
@@ -10,6 +11,15 @@ interface CategoryCard {
 
 export const HomeCategories = () => {
     const navigate = useNavigate();
+    const { loading } = useProducts('all');
+
+    if (loading) {
+        return (
+            <div className="py-20 text-center text-artisan-brown/60 animate-pulse">
+                Buscando piezas destacadas...
+            </div>
+        );
+    }
 
     // Ubico las categorias elegidas.-
     const mainCategories: CategoryCard[] = [
@@ -61,7 +71,7 @@ export const HomeCategories = () => {
                         <div
                             key={cat.id}
                             onClick={() => handleCategoryClick(cat.id)}
-                            className="group relative h-100 rounded-3xl overflow-hidden cursor-pointer border border-artisan-brown/5 bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
+                            className="group relative md:h-100 rounded-3xl overflow-hidden cursor-pointer border border-artisan-brown/5 bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
                         >
                             <div className="w-full h-full overflow-hidden">
                                 <img
