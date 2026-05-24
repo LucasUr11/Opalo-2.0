@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
-// import mate from "../../assets/mates_geometrico-2.webp"
-// import bombilla from "../../assets/bombilla_aluminio-2.webp"
-// import prenda from "../../assets/prenda_compleja-1.webp"
-// import yerbera from "../../assets/yerbera_cuero_sintetico-2.webp"
-
 interface CategoryCard {
     id: string;
     name: string;
@@ -21,25 +16,25 @@ export const HomeCategories = () => {
         {
             id: 'mates',
             name: 'Mates',
-            image: "mate",
+            image: "https://acdn-us.mitiendanube.com/stores/005/105/219/products/dsc_0572-3-fdc090843bd9a64c5117590320677188-1024-1024.webp",
             description: 'Piezas únicas en madera y calabaza'
         },
         {
             id: 'bombillas',
             name: 'Bombillas',
-            image: "bombilla",
+            image: "https://acdn-us.mitiendanube.com/stores/002/027/172/products/untitled-design-1-730d7699c6d1f4d42c17347294066109-640-0.webp",
             description: 'Alpaca y cincelados artesanales'
         },
         {
             id: 'yerberas',
             name: 'Yerberas',
-            image: "yerbera",
+            image: "https://acdn-us.mitiendanube.com/stores/002/425/427/products/img_0575-min-062135b036a61e8d9616993640539276-1024-1024.webp",
             description: 'Cuero genuino y guardado premium'
         },
         {
             id: 'prendas',
             name: 'Prendas',
-            image: "prenda",
+            image: "https://acdn-us.mitiendanube.com/stores/001/955/538/products/whatsapp-image-2025-07-29-at-19-45-18-2-a0eb3ee21925880f6817538314574153-1024-1024.webp",
             description: 'Indumentaria con identidad'
         },
     ]
@@ -61,7 +56,7 @@ export const HomeCategories = () => {
                     <div className="w-12 h-0.5 bg-artisan-brown/20 mx-auto mt-4" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                     {mainCategories.map((cat) => (
                         <div
                             key={cat.id}
