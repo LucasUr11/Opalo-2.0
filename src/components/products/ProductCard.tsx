@@ -43,22 +43,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 </div>
 
                 {/* Info del Producto */}
-                <div className="p-5">
+                <div className="p-4 sm:p-8">
                     <p className="text-xs text-artisan-leaf font-semibold uppercase tracking-wider mb-1">
                         {product.category.replace('_', ' ')}
                     </p>
-                    <h3 className="font-serif text-lg text-artisan-brown mb-2 line-clamp-1">
+                    <h3 className="font-serif text-sm sm:text-lg text-artisan-brown mb-2 line-clamp-1">
                         {product.name}
                     </h3>
 
                     <div className="flex items-center justify-between mt-4">
-                        <span className="text-xl font-bold text-artisan-brown">
+                        <span className="text-lg sm:text-xl font-bold text-artisan-brown">
                             ${product.price.toLocaleString('es-AR')}
                         </span>
 
                         <button
                             onClick={() => addToCart(product)}
-                            className="p-3 bg-artisan-brown text-artisan-paper rounded-xl hover:bg-black transition-colors flex items-center gap-2 group/btn">
+                            className="p-3 bg-artisan-brown text-artisan-paper rounded-xl hover:bg-black transition-colors flex items-center gap-2 group/btn cursor-pointer">
                             <ShoppingCart className="w-5 h-5" />
                             <span className="hidden sm:inline text-sm font-medium">Añadir</span>
                         </button>

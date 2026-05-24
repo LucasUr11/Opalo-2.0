@@ -4,18 +4,30 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { CartDrawer } from '../cart/CartDrawer';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export const Navbar = () => {
+interface NavbarProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const Navbar = ({ onClose }: NavbarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const cartItems = useCartStore((state) => state.cart);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const navigate = useNavigate();
 
     const navLinks = [
         { name: "Productos", to: "/productos" },
         { name: "Personalizados", to: "/personalizar" },
         { name: "Contacto", to: "/contacto" },
     ]
+
+    const handleCatalog = () => {
+        onClose();
+        navigate('/checkout');
+    }
 
     return (
         <>
@@ -68,7 +80,7 @@ export const Navbar = () => {
                                     {totalItems}
                                 </span>
                             </button>
-                            
+
                         </div>
                     </div>
 
@@ -108,13 +120,7 @@ export const Navbar = () => {
                                     <Link
                                         key={link.name}
                                         to={link.to}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            const element = document.getElementById("catalogo");
-                                            if (element) {
-                                                element.scrollIntoView({ behavior: "smooth" });
-                                            }
-                                        }}
+                                        onClick={handleCatalog}
                                         className="block px-3 py-4 text-base font-medium text-white hover:bg-artisan-leaf/10 rounded-lg"
                                     >
                                         {link.name}
