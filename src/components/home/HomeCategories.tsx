@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { useProducts } from "../../hooks/useProducts";
+import FadeIn from "../ui/FadeIn";
 
 interface CategoryCard {
     id: string;
@@ -66,46 +67,48 @@ export const HomeCategories = () => {
                     <div className="w-12 h-0.5 bg-artisan-brown/20 mx-auto mt-4" />
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                    {mainCategories.map((cat) => (
-                        <div
-                            key={cat.id}
-                            onClick={() => handleCategoryClick(cat.id)}
-                            className="group relative md:h-100 rounded-3xl overflow-hidden cursor-pointer border border-artisan-brown/5 bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
-                        >
-                            <div className="w-full h-full overflow-hidden">
-                                <img
-                                    src={cat.image}
-                                    alt={cat.name}
-                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                            </div>
-
-                            <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
-
-                            <div className="absolute bottom-0 left-0 w-full p-3 sm:p-8 flex flex-col justify-end text-white">
-                                <p className="text-xs font-bold uppercase tracking-widest text-artisan-blue mb-1 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                                    Ver productos
-                                </p>
-
-                                <div className="flex justify-between items-center">
-                                    <h3 className="font-serif text-xl lg:text-2xl font-light tracking-wide">
-                                        {cat.name}
-                                    </h3>
-                                    <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-slate-950">
-                                        <ArrowUpRight className="w-4 h-4" />
-                                    </div>
+                <FadeIn>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                        {mainCategories.map((cat) => (
+                            <div
+                                key={cat.id}
+                                onClick={() => handleCategoryClick(cat.id)}
+                                className="group relative md:h-100 rounded-3xl overflow-hidden cursor-pointer border border-artisan-brown/5 bg-white shadow-sm transition-all duration-500 hover:shadow-xl"
+                            >
+                                <div className="w-full h-full overflow-hidden">
+                                    <img
+                                        src={cat.image}
+                                        alt={cat.name}
+                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
                                 </div>
 
-                                <p className="text-sm text-gray-300 mt-2 font-light line-clamp-2">
-                                    {cat.description}
-                                </p>
+                                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+
+                                <div className="absolute bottom-0 left-0 w-full p-3 sm:p-8 flex flex-col justify-end text-white">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-artisan-blue mb-1 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                                        Ver productos
+                                    </p>
+
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="font-serif text-xl lg:text-2xl font-light tracking-wide">
+                                            {cat.name}
+                                        </h3>
+                                        <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-slate-950">
+                                            <ArrowUpRight className="w-4 h-4" />
+                                        </div>
+                                    </div>
+
+                                    <p className="text-sm text-gray-300 mt-2 font-light line-clamp-2">
+                                        {cat.description}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </FadeIn>
             </div>
         </section>
     )
