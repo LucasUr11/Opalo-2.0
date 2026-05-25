@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { CatalogPage } from "./pages/CatalogPage";
+import { Personalizar } from "./pages/Personalizar";
 import { Home } from "./pages/Home";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/productos", element: <CatalogPage /> },
+      { path: "/personalizar", element: <Personalizar /> },
       { path: "/product/:id", element: <ProductDetailPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/login", element: <Login /> },
