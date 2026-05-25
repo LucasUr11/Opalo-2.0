@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
-    isOpen: boolean;
     onClose: () => void;
 }
 
