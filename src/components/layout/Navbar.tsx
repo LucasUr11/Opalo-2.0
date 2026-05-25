@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
-    onClose: () => void;
+    onClose?: () => void;
 }
 
 export const Navbar = ({ onClose }: NavbarProps) => {
@@ -24,7 +24,7 @@ export const Navbar = ({ onClose }: NavbarProps) => {
     ]
 
     const handleCatalog = () => {
-        onClose();
+        if (onClose) onClose();
         navigate('/checkout');
     }
 

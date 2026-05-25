@@ -16,7 +16,7 @@ const AppLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
 
-      <Navbar />
+      <Navbar onClose={() => {}} />
 
       <main className="grow">
         <Outlet />
