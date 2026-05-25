@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabase';
 import {
   ArrowLeft,
@@ -13,7 +12,6 @@ import {
 } from 'lucide-react';
 import { type Product } from '../types/product';
 
-// Definimos las categorías basadas en Categories.tsx
 const CATEGORIES = [
   { id: 'mates', label: 'Mates', subs: ['mates_torpedo', 'mates_imperiales', 'mates_madera', 'mates_camionero', 'mates_criollo', 'mates_rancheros'] },
   { id: 'bombillas', label: 'Bombillas', subs: ['bombillas'] },

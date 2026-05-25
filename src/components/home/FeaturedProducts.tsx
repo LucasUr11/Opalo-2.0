@@ -8,7 +8,9 @@ export const FeaturedProducts = () => {
     const { products, loading, error } = useProducts('all');
     const addToCart = useCartStore((state) => state.addToCart);
 
-    const featuredList = products.slice(0, 4);
+    const featuredList = products
+        .filter((product) => product.featured === true)
+        .slice(0, 4);
 
     if (loading) {
         return (

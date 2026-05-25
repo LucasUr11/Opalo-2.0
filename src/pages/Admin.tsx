@@ -136,7 +136,10 @@ export default function Admin() {
                         <LayoutDashboard className="w-6 h-6" />
                         <h1 className="font-serif text-2xl">Administración Ópalo</h1>
                     </div>
-                    <button onClick={handleLogout} className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors">
+                    <button 
+                        onClick={handleLogout} 
+                        className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors"
+                    >
                         <LogOut className="w-4 h-4" /> Salir
                     </button>
                 </div>
@@ -171,10 +174,16 @@ export default function Admin() {
                         </thead>
                         <tbody className="divide-y divide-artisan-brown/5">
                             {products.map((product) => (
-                                <tr key={product.id} className="hover:bg-artisan-paper/20 transition-colors">
+                                <tr 
+                                    key={product.id} 
+                                    className="hover:bg-artisan-paper/20 transition-colors"
+                                >
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-4">
-                                            <img src={product.images?.[0]} alt="" className="w-12 h-12 rounded-lg object-cover bg-artisan-paper" />
+                                            <img 
+                                                src={product.images?.[0]}
+                                                className="w-12 h-12 rounded-lg object-cover bg-artisan-paper"
+                                            />
                                             <span className="font-medium text-artisan-brown">{product.name}</span>
                                         </div>
                                     </td>
@@ -187,7 +196,10 @@ export default function Admin() {
                                         ${product.price?.toLocaleString('es-AR')}
                                     </td>
                                     <td className="px-6 py-4 text-right space-x-2">
-                                        <button onClick={() => navigate(`/admin/edit/${product.id}`)} className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all">
+                                        <button
+                                            onClick={() => navigate(`/admin/edit/${product.id}`)}
+                                            className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all"
+                                        >
                                             <Pencil className="w-5 h-5" />
                                         </button>
                                         <button
