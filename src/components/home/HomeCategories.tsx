@@ -16,7 +16,7 @@ export const HomeCategories = () => {
     if (loading) {
         return (
             <div className="py-20 text-center text-artisan-brown/60 animate-pulse">
-                Buscando piezas destacadas...
+                Buscando categorias...
             </div>
         );
     }
