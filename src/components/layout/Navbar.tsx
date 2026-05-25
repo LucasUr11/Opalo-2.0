@@ -4,7 +4,7 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { CartDrawer } from '../cart/CartDrawer';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
     onClose?: () => void;
@@ -16,6 +16,12 @@ export const Navbar = ({ onClose }: NavbarProps) => {
     const cartItems = useCartStore((state) => state.cart);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Lo utilizo para ocultar el navbar en el 'Admin'.-
+    if (location.pathname.startsWith('/admin')) {
+        return null; 
+    }
 
     const navLinks = [
         { name: "Productos", to: "/productos" },

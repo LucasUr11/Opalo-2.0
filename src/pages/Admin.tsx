@@ -27,8 +27,23 @@ const MetricCard = ({ title, value, icon, color }: MetricCardProps) => (
 export default function Admin() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
     const navigate = useNavigate();
     const [productToDeleteId, setProductToDeleteId] = useState<string | null>(null)
+
+    // Detectamos el scroll para cambiar el estado del fondo.-
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     // Estado para el Toast.-
     const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({
@@ -130,7 +145,14 @@ export default function Admin() {
 
     return (
         <div className="min-h-screen bg-artisan-paper/30 pb-20">
-            <header className="bg-white border-b border-artisan-brown/10 py-4 px-8 mb-8 sticky top-0 z-10">
+            <header 
+                className={`border-b border-artisan-brown/10 py-4 px-8 mb-8 sticky top-0 z-10
+                    ${isScrolled
+                        ? "py-4 bg-white/10 backdrop-blur-md border-b border-white/5"
+                        : "py-6 bg-white"
+                    }
+                `}
+            >
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3 text-artisan-brown">
                         <LayoutDashboard className="w-6 h-6" />
@@ -138,7 +160,7 @@ export default function Admin() {
                     </div>
                     <button 
                         onClick={handleLogout} 
-                        className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors"
+                        className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors cursor-pointer"
                     >
                         <LogOut className="w-4 h-4" /> Salir
                     </button>
