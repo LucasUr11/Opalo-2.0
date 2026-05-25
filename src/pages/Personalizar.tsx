@@ -35,7 +35,7 @@ export const Personalizar = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const phoneNumber = "543537669534";
+        const phoneNumber = "543537333758";
 
         const message = `✨ *Nueva Solicitud de Personalización* ✨\n\n` +
             `👤 *Nombre y Apellido:* ${formData.fullName}\n` +

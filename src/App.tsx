@@ -4,6 +4,7 @@ import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { CatalogPage } from "./pages/CatalogPage";
 import { Personalizar } from "./pages/Personalizar";
+import { Contacto } from "./pages/Contacto";
 import { Home } from "./pages/Home";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/productos", element: <CatalogPage /> },
       { path: "/personalizar", element: <Personalizar /> },
+      { path: "/contacto", element: <Contacto /> },
       { path: "/product/:id", element: <ProductDetailPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/login", element: <Login /> },
