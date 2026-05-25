@@ -85,13 +85,13 @@ export const HomeCategories = () => {
 
                             <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
 
-                            <div className="absolute bottom-0 left-0 w-full p-4 sm:p-8 flex flex-col justify-end text-white">
+                            <div className="absolute bottom-0 left-0 w-full p-3 sm:p-8 flex flex-col justify-end text-white">
                                 <p className="text-xs font-bold uppercase tracking-widest text-artisan-blue mb-1 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
                                     Ver productos
                                 </p>
 
                                 <div className="flex justify-between items-center">
-                                    <h3 className="font-serif text-2xl lg:text-3xl font-light tracking-wide">
+                                    <h3 className="font-serif text-xl lg:text-2xl font-light tracking-wide">
                                         {cat.name}
                                     </h3>
                                     <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:text-slate-950">
