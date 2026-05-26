@@ -11,6 +11,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { type Product } from '../types/product';
+// import { toast } from 'react-hot-toast';
 
 const CATEGORIES = [
   { id: 'mates', label: 'Mates', subs: ['mates_torpedo', 'mates_imperiales', 'mates_madera', 'mates_camionero', 'mates_criollo', 'mates_rancheros'] },
@@ -109,7 +110,7 @@ export default function ProductForm() {
 
     try {
       let finalImages = [...(form.images || [])];
-
+      
       if (selectedFiles.length > 0) {
         for (const file of selectedFiles) {
           const fileExt = file.name.split('.').pop();
@@ -134,23 +135,32 @@ export default function ProductForm() {
         ...form,
         images: finalImages,
       };
-
+      
+      // Lógica de edición.-
       if (isEdit) {
         const { error: updateError } = await supabase
-          .from('products')
-          .update(productData)
-          .eq('id', id);
+        .from('products')
+        .update(productData)
+        .eq('id', id)
+        
         if (updateError) throw updateError;
+        
+        navigate('/admin', {
+          state: { notification: 'Producto actualizado correctamente.', type: 'success'}
+        });
       } else {
         const { error: insertError } = await supabase
           .from('products')
           .insert([productData]);
-        if (insertError) throw insertError;
-      }
+          if (insertError) throw insertError;
 
-      navigate('/admin');
+          navigate('/admin', {
+            state: { notification: 'Producto creado correctamente.', type: 'success'}
+          });
+      }
+      
     } catch (err: any) {
-      setError(err.message || 'Error al guardar el producto');
+      setError(err.message || 'Error al guardar el producto.');
       console.error(err);
     } finally {
       setIsSaving(false);
@@ -171,7 +181,7 @@ export default function ProductForm() {
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => navigate('/admin')}
-            className="flex items-center gap-2 text-artisan-brown hover:text-artisan-leaf transition-colors font-medium"
+            className="flex items-center gap-2 text-artisan-brown hover:text-artisan-leaf transition-colors font-medium cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
             Volver al Panel
@@ -323,7 +333,7 @@ export default function ProductForm() {
               <button
                 type="submit"
                 disabled={isSaving}
-                className="w-full mt-8 py-4 bg-artisan-leaf hover:bg-green-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-50"
+                className="w-full mt-8 py-4 bg-artisan-leaf hover:bg-green-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-50 cursor-pointer"
               >
                 {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 {isEdit ? 'Guardar Cambios' : 'Publicar Producto'}

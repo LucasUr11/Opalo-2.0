@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LogOut, Plus, Loader2, Package, AlertTriangle, XCircle, Pencil, Trash2, LayoutDashboard } from "lucide-react";
 import { type Product } from "../types/product";
 import { ConfirmModal } from "../components/admin/ConfirmModal";
@@ -29,6 +29,7 @@ export default function Admin() {
     const [isLoading, setIsLoading] = useState(true);
     const [isScrolled, setIsScrolled] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
     const [productToDeleteId, setProductToDeleteId] = useState<string | null>(null)
 
     // Detectamos el scroll para cambiar el estado del fondo.-
@@ -85,7 +86,7 @@ export default function Admin() {
         setProductToDeleteId(id); // Al guardar el ID, el modal se va a abrir
     };
 
-    // Esta función es la que realmente se conecta a Supabase cuando el usuario confirma en el modal
+    // Esta función es la que realmente se conecta a Supabase cuando el usuario confirma en el modal eliminar un producto.-
     const executeDelete = async () => {
         if (!productToDeleteId) return;
 
@@ -124,6 +125,18 @@ export default function Admin() {
             setProductToDeleteId(null);
         }
     };
+
+    useEffect(() => {
+        if (location.state && location.state.notification) {
+            const message = location.state.notification;
+            const type = location.state.type || 'success';
+
+            showNotification(message, type);
+
+            navigate(location.pathname, { replace: true});
+        }
+    }, [location, navigate]);
+
 
     if (isLoading) return (
         <div className="min-h-screen flex items-center justify-center bg-artisan-paper">
@@ -178,7 +191,7 @@ export default function Admin() {
                     <h2 className="font-serif text-2xl text-artisan-brown italic">Inventario Actual</h2>
                     <button
                         onClick={() => navigate("/admin/new")}
-                        className="bg-artisan-leaf text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-green-700 shadow-lg transition-all"
+                        className="bg-artisan-leaf text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-green-700 shadow-lg transition-all cursor-pointer"
                     >
                         <Plus className="w-5 h-5" /> Nuevo Producto
                     </button>
@@ -220,7 +233,7 @@ export default function Admin() {
                                     <td className="px-6 py-4 text-right space-x-2">
                                         <button
                                             onClick={() => navigate(`/admin/edit/${product.id}`)}
-                                            className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all"
+                                            className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all cursor-pointer"
                                         >
                                             <Pencil className="w-5 h-5" />
                                         </button>
