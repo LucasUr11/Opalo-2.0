@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
-import { Loader2, LogIn, ShieldCheck } from "lucide-react";
+import { Loader2, LogIn, ShieldCheck, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -8,6 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,14 +56,28 @@ export default function Login() {
 
           <div>
             <label className="block text-xs font-bold uppercase tracking-widest text-artisan-brown/60 mb-2">Contraseña</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-12 px-4 rounded-xl border border-artisan-brown/10 focus:ring-2 focus:ring-artisan-leaf outline-none transition-all"
-              placeholder="••••••••"
-            />
+            <div className="relative flex items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-12 px-4 rounded-xl border border-artisan-brown/10 focus:ring-2 focus:ring-artisan-leaf outline-none transition-all"
+                placeholder="••••••••"
+              />
+              <button
+                type="button" // Debe ser type: button para que no se ejecute el Submit.-
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 text-artisan-brown/40 hover:text-artisan-leaf transition-colors focus:outline-none cursor-pointer p-1"
+                title={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
 
           {errorMsg && <p className="text-sm text-red-500 text-center font-medium">{errorMsg}</p>}
@@ -70,7 +85,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-12 rounded-xl bg-artisan-brown text-artisan-paper font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-lg disabled:opacity-50"
+            className="w-full h-12 rounded-xl bg-artisan-brown text-artisan-paper font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-lg disabled:opacity-50 cursor-pointer"
           >
             {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><LogIn className="w-5 h-5" /> Ingresar</>}
           </button>
