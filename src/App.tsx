@@ -10,6 +10,7 @@ import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import ProductForm from "./pages/ProductForm";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ScrollToTop } from "./components/ui/ScrollToTop";
 
 import Admin from "./pages/Admin"
 import Login from "./pages/Login"
@@ -18,9 +19,11 @@ const AppLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
 
+      <ScrollToTop />
+
       <Navbar onClose={() => {}} />
 
-      <main className="grow">
+      <main className="flex-1 w-full flex flex-col justify-start">
         <Outlet />
       </main>
 
