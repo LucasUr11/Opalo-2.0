@@ -14,6 +14,7 @@ import { ScrollToTop } from "./components/ui/ScrollToTop";
 
 import Admin from "./pages/Admin"
 import Login from "./pages/Login"
+import { NotFound } from "./pages/NotFound";
 
 const AppLayout = () => {
   return (
@@ -53,6 +54,8 @@ const router = createBrowserRouter([
           { path: "/admin/edit/:id", element: <ProductForm /> },
         ],
       },
+
+      { path: "*", element: <NotFound /> },
     ],
   }
 ], {
