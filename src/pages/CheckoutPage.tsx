@@ -19,7 +19,7 @@ export const CheckoutPage = () => {
     };
 
     const handleWhatsAppLink = () => {
-        const telefono = "5493537669534"
+        const telefono = "5493537333758"
 
         // Mensaje detallado para enviar por WhatsApp.-
         const mensajeProductos = cart.map(item =>
