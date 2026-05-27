@@ -13,13 +13,13 @@ interface MetricCardProps {
 }
 
 const MetricCard = ({ title, value, icon, color }: MetricCardProps) => (
-    <div className="bg-white rounded-2xl shadow-sm border border-artisan-brown/10 p-6 flex items-center gap-4">
-        <div className={`${color} text-white p-4 rounded-2xl shadow-inner`}>
+    <div className="bg-white rounded-2xl shadow-sm border border-artisan-brown/10 p-5 flex items-center gap-4 w-full">
+        <div className={`${color} text-white p-3.5 rounded-xl shadow-inner shrink-0`}>
             {icon}
         </div>
-        <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-artisan-brown/50">{title}</p>
-            <p className="text-3xl font-serif text-artisan-brown">{value}</p>
+        <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-artisan-brown/50 truncate">{title}</p>
+            <p className="text-2xl sm:text-3xl font-serif text-artisan-brown truncate">{value}</p>
         </div>
     </div>
 )
@@ -81,11 +81,6 @@ export default function Admin() {
         navigate("/login");
     };
 
-    // Esta función ahora solo "prepara" el borrado abriendo el modal
-    const handleDeleteClick = (id: string) => {
-        setProductToDeleteId(id); // Al guardar el ID, el modal se va a abrir
-    };
-
     // Esta función es la que realmente se conecta a Supabase cuando el usuario confirma en el modal eliminar un producto.-
     const executeDelete = async () => {
         if (!productToDeleteId) return;
@@ -133,7 +128,7 @@ export default function Admin() {
 
             showNotification(message, type);
 
-            navigate(location.pathname, { replace: true});
+            navigate(location.pathname, { replace: true });
         }
     }, [location, navigate]);
 
@@ -157,129 +152,187 @@ export default function Admin() {
     }
 
     return (
-        <div className="min-h-screen bg-artisan-paper/30 pb-20">
-            <header 
-                className={`border-b border-artisan-brown/10 py-4 px-8 mb-8 sticky top-0 z-10
-                    ${isScrolled
-                        ? "py-4 bg-white/10 backdrop-blur-md border-b border-white/5"
-                        : "py-6 bg-white"
-                    }
-                `}
-            >
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <div className="flex items-center gap-3 text-artisan-brown">
-                        <LayoutDashboard className="w-6 h-6" />
-                        <h1 className="font-serif text-2xl">Administración Ópalo</h1>
+        <div
+            className={`min-h-screen bg-artisan-paper/10 pt-24 pb-16 px-4 sm:px-8 max-w-7xl mx-auto w-full
+                ${isScrolled
+                    ? "py-4 bg-white/10 backdrop-blur-md border-b border-white/5"
+                    : "py-6 bg-white"
+                }
+        `}>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-artisan-brown/5 pb-6">
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-artisan-brown text-white rounded-xl shadow-md">
+                        <LayoutDashboard className="w-5 h-5" />
                     </div>
-                    <button 
-                        onClick={handleLogout} 
-                        className="flex items-center gap-2 text-red-500 hover:text-red-700 font-bold text-sm uppercase tracking-widest transition-colors cursor-pointer"
-                    >
-                        <LogOut className="w-4 h-4" /> Salir
-                    </button>
-                </div>
-            </header>
-
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <MetricCard title="Productos Totales" value={totalProducts} icon={<Package />} color="bg-artisan-brown" />
-                    <MetricCard title="Stock Bajo (<=5)" value={lowStock} icon={<AlertTriangle />} color="bg-orange-500" />
-                    <MetricCard title="Sin Stock" value={noStock} icon={<XCircle />} color="bg-red-500" />
+                    <div>
+                        <h1 className="font-serif text-2xl sm:text-3xl text-artisan-brown">Panel de Control</h1>
+                        <p className="text-xs text-artisan-brown/50 font-light">Gestión interna de Ópalo</p>
+                    </div>
                 </div>
 
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="font-serif text-2xl text-artisan-brown italic">Inventario Actual</h2>
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors self-end sm:self-auto"
+                >
+                    <LogOut className="w-4 h-4" /> Salir
+                </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
+                <MetricCard title="Productos Totales" value={totalProducts} icon={<Package />} color="bg-artisan-brown" />
+                <MetricCard title="Stock Bajo (<=5)" value={lowStock} icon={<AlertTriangle />} color="bg-orange-500" />
+                <MetricCard title="Sin Stock" value={noStock} icon={<XCircle />} color="bg-red-500" />
+            </div>
+
+            {/* Sección del Listado.- */}
+            <div className="bg-white rounded-2xl border border-artisan-brown/5 shadow-sm p-4 sm:p-6">
+
+                {/* Barra superior de la tabla.- */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 className="font-serif text-xl text-artisan-brown">Inventario de Piezas</h2>
+                        <p className="text-xs text-artisan-brown/50 font-light">Agregá, editá o eliminá ítems del catálogo</p>
+                    </div>
                     <button
                         onClick={() => navigate("/admin/new")}
-                        className="bg-artisan-leaf text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-green-700 shadow-lg transition-all cursor-pointer"
+                        className="flex items-center justify-center gap-2 bg-artisan-leaf text-white px-5 py-3 rounded-xl font-bold text-xs tracking-wider uppercase hover:bg-green-700 transition-colors shadow-md shadow-green-700/10 cursor-pointer"
                     >
-                        <Plus className="w-5 h-5" /> Nuevo Producto
+                        <Plus className="w-4 h-4" /> Nuevo Producto
                     </button>
                 </div>
 
-                <div className="bg-white rounded-3xl shadow-sm border border-artisan-brown/10 overflow-hidden">
-                    <table className="w-full text-left">
-                        <thead className="bg-artisan-paper/50 text-artisan-brown border-b border-artisan-brown/10">
-                            <tr>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest">Producto</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-center">Stock</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-center">Precio</th>
-                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-right">Acciones</th>
+                {/* Vista responsive.- */}
+                <div className="grid grid-cols-1 gap-4 md:hidden">
+                    {products.length === 0 ? (
+                        <div className="text-center py-10 text-artisan-brown/40 text-sm">No hay productos en el catálogo.</div>
+                    ) : (
+                        products.map((product) => (
+                            <div key={product.id} className="p-4 rounded-xl border border-artisan-brown/10 bg-artisan-paper/5 flex flex-col gap-3">
+                                <div className="flex items-center gap-3">
+                                    {product.images && product.images[0] ? (
+                                        <img src={product.images[0]} alt={product.name} className="w-14 h-14 object-cover rounded-lg bg-white border border-artisan-brown/10 shrink-0" />
+                                    ) : (
+                                        <div className="w-14 h-14 bg-artisan-brown/5 rounded-lg flex items-center justify-center text-artisan-brown/30 shrink-0"><Package className="w-5 h-5" /></div>
+                                    )}
+                                    <div className="min-w-0 flex-1">
+                                        <h4 className="font-medium text-sm text-artisan-brown truncate">{product.name}</h4>
+                                        <p className="text-xs text-artisan-brown/40 uppercase tracking-wider font-semibold mt-0.5">{product.category}</p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-2 bg-white p-3 rounded-lg border border-artisan-brown/5 text-xs">
+                                    <div>
+                                        <span className="text-artisan-brown/40 block">Precio (ARS)</span>
+                                        <span className="font-bold text-artisan-brown">${product.price.toLocaleString('es-AR')}</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-artisan-brown/40 block">Stock</span>
+                                        <span className={`font-bold ${product.stock === 0 ? 'text-red-500' : 'text-artisan-brown'}`}>{product.stock} u.</span>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-2 mt-1">
+                                    <button
+                                        onClick={() => navigate(`/admin/edit/${product.id}`)}
+                                        className="flex-1 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    >
+                                        <Pencil className="w-3.5 h-3.5" /> Editar
+                                    </button>
+                                    <button
+                                        onClick={() => setProductToDeleteId(product.id)}
+                                        className="flex-1 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    >
+                                        <Trash2 className="w-3.5 h-3.5" /> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+
+                {/* Vista para PC.- */}
+                <div className="hidden md:block overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
+                            <tr className="border-b border-artisan-brown/10 text-[11px] font-bold uppercase tracking-widest text-artisan-brown/40">
+                                <th className="pb-4 font-bold">Imagen</th>
+                                <th className="pb-4 font-bold">Nombre</th>
+                                <th className="pb-4 font-bold">Categoría</th>
+                                <th className="pb-4 font-bold">Precio (ARS)</th>
+                                <th className="pb-4 font-bold">Stock</th>
+                                <th className="pb-4 text-right font-bold">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-artisan-brown/5">
-                            {products.map((product) => (
-                                <tr 
-                                    key={product.id} 
-                                    className="hover:bg-artisan-paper/20 transition-colors"
-                                >
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-4">
-                                            <img 
-                                                src={product.images?.[0]}
-                                                className="w-12 h-12 rounded-lg object-cover bg-artisan-paper"
-                                            />
-                                            <span className="font-medium text-artisan-brown">{product.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 text-center">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${product.stock === 0 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
-                                            {product.stock} unidades
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-center font-bold text-artisan-brown">
-                                        ${product.price?.toLocaleString('es-AR')}
-                                    </td>
-                                    <td className="px-6 py-4 text-right space-x-2">
-                                        <button
-                                            onClick={() => navigate(`/admin/edit/${product.id}`)}
-                                            className="p-2 text-artisan-leaf hover:bg-artisan-leaf/10 rounded-lg transition-all cursor-pointer"
-                                        >
-                                            <Pencil className="w-5 h-5" />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteClick(product.id)}
-                                            className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
-                                        >
-                                            <Trash2 className="w-5 h-5" />
-                                        </button>
-                                    </td>
+                        <tbody className="divide-y divide-artisan-brown/5 text-sm text-artisan-brown/80">
+                            {products.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6} className="text-center py-10 text-artisan-brown/40">No hay productos cargados todavía.</td>
                                 </tr>
-                            ))}
+                            ) : (
+                                products.map((product) => (
+                                    <tr key={product.id} className="hover:bg-artisan-paper/5 transition-colors group">
+                                        <td className="py-4">
+                                            {product.images && product.images[0] ? (
+                                                <img src={product.images[0]} alt={product.name} className="w-12 h-12 object-cover rounded-lg bg-artisan-paper/20 border border-artisan-brown/10 shadow-sm" />
+                                            ) : (
+                                                <div className="w-12 h-12 bg-artisan-brown/5 rounded-lg flex items-center justify-center text-artisan-brown/30"><Package className="w-4 h-4" /></div>
+                                            )}
+                                        </td>
+                                        <td className="py-4 font-medium text-artisan-brown">{product.name}</td>
+                                        <td className="py-4 text-xs uppercase tracking-wider text-artisan-brown/60">{product.category}</td>
+                                        <td className="py-4 font-semibold">${product.price.toLocaleString('es-AR')}</td>
+                                        <td className="py-4">
+                                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${product.stock === 0 ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`}>
+                                                <span className={`w-1.5 h-1.5 rounded-full ${product.stock === 0 ? 'bg-red-500' : 'bg-green-500'}`} />
+                                                {product.stock} unidades
+                                            </span>
+                                        </td>
+                                        <td className="py-4 text-right">
+                                            <div className="flex justify-end gap-2">
+                                                <button
+                                                    onClick={() => navigate(`/admin/edit/${product.id}`)}
+                                                    className="p-2 text-artisan-brown/60 hover:text-blue-600 hover:bg-blue-50 rounded-lg cursor-pointer transition-all"
+                                                    title="Editar pieza"
+                                                >
+                                                    <Pencil className="w-4 h-4" />
+                                                </button>
+                                                <button
+                                                    onClick={() => setProductToDeleteId(product.id)}
+                                                    className="p-2 text-artisan-brown/60 hover:text-red-600 hover:bg-red-50 rounded-lg cursor-pointer transition-all"
+                                                    title="Eliminar pieza"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
 
             </div>
 
-            {toast.show && (
-                <div
-                    className={`fixed bottom-5 right-5 z-50 flex items-center gap-3 px-6 py-4 rounded-xl shadow-xl border text-sm font-medium tracking-wide animate-bounce
-                        ${toast.type === "success"
-                            ? 'bg-green-50 border-green-200 text-green-800'
-                            : 'bg-red-50 border-red-200 text-red-800'
-                        }    
-                    `}
-                >
-                    <span
-                        className={`w-2 h-2 rounded-full
-                            ${toast.type === 'success'
-                                ? 'bg-green-500'
-                                : 'bg-red-500'
-                            }
-                        `}
-                    />
-                    {toast.message}
-                </div>
-            )}
+            {
+                toast.show && (
+                    <div className={`fixed bottom-5 right-5 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-xl border text-xs sm:text-sm font-medium tracking-wide bg-white animate-fade-in
+                    ${toast.type === "success" ? 'border-green-200 text-green-800' : 'border-red-200 text-red-800'}    
+                `}>
+                        <span className={`w-2 h-2 rounded-full ${toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
+                        {toast.message}
+                    </div>
+                )
+            }
 
             <ConfirmModal
                 isOpen={productToDeleteId !== null}
                 title="¿Confirmas eliminar?"
-                message="Esta acción no se puede deshacer. El producto se borrará permanentemente."
+                message="Esta acción no se puede deshacer. El producto se borrará permanentemente de la tienda."
                 onConfirm={executeDelete}
                 onCancel={() => setProductToDeleteId(null)}
             />
-        </div>
+        </div >
     );
 }
