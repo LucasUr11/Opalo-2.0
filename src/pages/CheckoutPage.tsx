@@ -137,7 +137,7 @@ export const CheckoutPage = () => {
                         <button
                             onClick={handleWhatsAppLink}
                             disabled={!formData.nombre || !formData.direccion}
-                            className="w-full py-4 bg-artisan-leaf text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-transform">
+                            className="w-full py-4 bg-artisan-leaf text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-transform cursor-pointer">
                             <MessageCircle className="w-6 h-6" />
                             Confirmar por WhatsApp
                         </button>

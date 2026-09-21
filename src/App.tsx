@@ -15,6 +15,7 @@ import { ScrollToTop } from "./components/ui/ScrollToTop";
 import Admin from "./pages/Admin"
 import Login from "./pages/Login"
 import { NotFound } from "./pages/NotFound";
+import RamoFloresAmarillas from "./pages/FloresAmarrillas";
 
 const AppLayout = () => {
   return (
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <ProductDetailPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/login", element: <Login /> },
+      { path: "/floresAmarillas", element: <RamoFloresAmarillas /> },
 
       // Rutas Protegidas.-
       {

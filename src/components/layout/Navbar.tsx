@@ -24,9 +24,11 @@ export const Navbar = ({ onClose }: NavbarProps) => {
     }
 
     const navLinks = [
+        { name: "Un Regalo🌻", to: "/floresAmarillas" },
         { name: "Productos", to: "/productos" },
         { name: "Personalizados", to: "/personalizar" },
         { name: "Contacto", to: "/contacto" },
+
     ]
 
     const handleCatalog = () => {
